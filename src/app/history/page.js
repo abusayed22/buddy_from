@@ -15,9 +15,10 @@ function page() {
           <li>
             <a
               href="#page1"
-              className={`flex justify-center py-4 ${
-                tab === "Name" && "shadow text-indigo-900 bg-white"
-              }`}
+              className={`flex justify-center py-4 `}
+              // className={`flex justify-center py-4 ${
+              //   tab === "Name" && "shadow text-indigo-900 bg-white"
+              // }`}
             >
               Travel
             </a>
