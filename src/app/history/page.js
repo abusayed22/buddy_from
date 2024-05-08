@@ -5,7 +5,7 @@ import Pagination from "@/components/Pagination";
 import React, { useState } from "react";
 
 function page() {
-  const [tab, setTab] = useState("");
+  // const [tab, setTab] = useState("");
 
   return (
     <GenaralLayout>
