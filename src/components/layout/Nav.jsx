@@ -1,7 +1,17 @@
-import React from 'react'
+"use client"
+
+import React, { useEffect, useState } from 'react'
 import '../../../public/assets/nav.css'
 
 function Nav() {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+        console.log(isOpen)
+    };
+
+
     return (
         <>
             {/* web  */}
@@ -37,7 +47,27 @@ function Nav() {
             </nav>
 
             {/* mobile  */}
-            <div className='block md:hidden'>
+            <div className='block md:hidden relative '>
+
+                <div className='mt-2 ml-2' onClick={toggleMenu}>
+                    <input type="checkbox" id="checkbox" />
+                    <label for="checkbox" class="toggle">
+                        <div class="bars" id="bar1"></div>
+                        <div class="bars" id="bar2"></div>
+                        <div class="bars" id="bar3"></div>
+                    </label>
+                </div>
+
+                {isOpen && (
+                    <div className='absolute w-[300px] h-[60vh] z-10 flex flex-col justify-center items-center bg-indigo-500 backdrop-blur bg-transparent'>
+                    <ul className='flex flex-col gap-6'>
+                        <li><a href="/" className='text-indigo-500 text-xl font-bold'>Home</a></li>
+                        <li><a href="/dashboard" className='text-indigo-500 text-xl font-bold'>Dashboard</a></li>
+                        <li><a href="/history" className='text-indigo-500 text-xl font-bold'>History</a></li>
+                    </ul>
+                </div>
+                )}
+
 
             </div>
         </>
