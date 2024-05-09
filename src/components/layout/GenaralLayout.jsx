@@ -5,7 +5,10 @@ function GenaralLayout({children}) {
   return (
     <div>
         <Nav />
+        <div className='bg-gray-400'>
+
         {children}
+        </div>
         
     </div>
   )

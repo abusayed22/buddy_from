@@ -9,7 +9,7 @@ function page() {
 
   return (
     <GenaralLayout>
-      <div className="mt-10">
+      <div className=" py-8">
         <div className="w-[90%] mx-auto">
         <ul className="grid grid-flow-col text-center text-gray-500 bg-gray-100 rounded-lg p-1">
           <li>

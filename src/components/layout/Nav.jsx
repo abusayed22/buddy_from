@@ -2,15 +2,16 @@
 
 import React, { useEffect, useState } from 'react'
 import '../../../public/assets/nav.css'
+import { usePathname } from 'next/navigation'
 
 function Nav() {
-
+    const path = usePathname()
 
 
     return (
-        <>
+        <div className='bg-gray-300 shadow shadow-gray-300'>
             {/* web  */}
-            <nav className="hidden md:block bg-gray-200 shadow shadow-gray-300 ">
+            <nav className="hidden md:block ">
                 <div className="w-[90%] md:h-16 h-28 mx-auto flex items-center justify-between flex-wrap md:flex-nowrap">
                     {/* <!-- Logo --> */}
                     <a href='/' className="text-primary md:order-1 cursor-pointer">
@@ -23,8 +24,9 @@ function Nav() {
                     <div className="text-gray-500 order-3 w-full md:w-auto md:order-2">
                         <ul className="flex font-semibold justify-between">
 
-                            <li className="md:px-4 md:py-2 text-indigo-500"><a href="/dashboard">Dashboard</a></li>
-                            <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/history">History</a></li>
+                            <li className={`md:px-4 md:py-2"}`}><a className={`${path === '/dashboard' ? "text-blue-700" :"text-indigo-400 "}`} href="/dashboard">Dashboard</a></li>
+                            <li className={`md:px-4 md:py-2"}`}><a className={`${path === '/history' ? "text-blue-700" :"text-indigo-400 "}`} href="/history">History</a></li>
+                            {/* <li className={`md:px-4 md:py-2`}><a className={`${path === '/history' ? "text-blue-700" :"text-indigo-500 "}`} href="/history">History</a></li> */}
                             {/* <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/history">History</a></li> */}
                         </ul>
                     </div>
@@ -43,10 +45,10 @@ function Nav() {
 
 
             {/* mobile  */}
-            <div className='block md:hidden relative w-[90%] mx-auto'>
+            <div className='block md:hidden relative w-[90%] mx-auto '>
 
                 <nav>
-                    <div className="navbar z-20 ">
+                    <div className="navbar z-20 w-full ">
                         <div className="container nav-container z-20">
                             <input className="checkbox" type="checkbox" name="" id="" />
                             <div className="hamburger-lines">
@@ -64,11 +66,14 @@ function Nav() {
                                 </a>
                             </div> */}
                             <div className="menu-items">
-                                <li><a href="/">Home</a></li>
-                                <li><a href="/dashboard">Dashboard</a></li>
-                                <li><a href="#">History</a></li>
-                                <li><a href="#">portfolio</a></li>
-                                <li><a href="#">contact</a></li>
+                                <li className={`md:px-4 md:py-2 ${path === '/' ? "text-white" :"text-indigo-500"}`}><a href="/">Home</a></li>
+                                <li className={`md:px-4 md:py-2 ${path === '/dashboard' ? "text-white" :"text-indigo-500"}`}><a href="/dashboard">Dashboard</a></li>
+                                <li className={`md:px-4 md:py-2 ${path === '/history' ? "text-white" :"text-indigo-500"}`}><a href="/history">History</a></li>
+                                {/* <li><a href="#">portfolio</a></li> */}
+                                {/* <li><a href="#">contact</a></li> */}
+
+                                <br />
+                                <br />
                                 <li className='w-full flex justify-center'><a href='/login-register' className="px-3 py-2 bg-primary hover:bg-indigo-600 text-sm text-gray-50 rounded-xl flex items-center gap-2">
                                     {/* <!-- Heroicons - Login Solid --> */}
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -83,7 +88,7 @@ function Nav() {
 
 
             </div>
-        </>
+        </div>
 
     )
 }
