@@ -3,14 +3,14 @@ import ExpenseForm from './ExpenseForm'
 
 function Hero() {
     return (
-        <div className='w-full h-[80vh]'>
+        <div className='w-full h-[80vh] z-0'>
             <div className="relative">
                 <img
                     src="https://images.pexels.com/photos/3228766/pexels-photo-3228766.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                    className="hidden md:block absolute inset-0 object-cover w-full h-full opacity-5"
+                    className="hidden md:block absolute inset-0 object-cover w-full h-full "
                     alt=""
                 />
-                <div className="relative bg-opacity-75 bg-deep-purple-accent-700">
+                <div className="relative bg-opacity-75 bg-purple-700">
                     <svg
                         className="absolute inset-x-0 bottom-0 text-white"
                         viewBox="0 0 1160 163"
