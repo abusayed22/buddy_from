@@ -6,7 +6,7 @@ function Hero() {
         <div className='w-full h-[80vh] z-0'>
             <div className="relative">
                 <img
-                    src="https://images.pexels.com/photos/3228766/pexels-photo-3228766.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                    src="https://images.unsplash.com/photo-1534425393370-5f5c64b7efdb?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     className="hidden md:block absolute inset-0 object-cover w-full h-full "
                     alt=""
                 />
