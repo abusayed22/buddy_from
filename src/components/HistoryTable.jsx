@@ -1,108 +1,71 @@
+"use client"
 import React from 'react'
 import { FcBusiness, FcLibrary } from "react-icons/fc";
 import { FaCar } from "react-icons/fa";
+import {Col,Card,CardHeader,UncontrolledDropdown,DropdownToggle,DropdownMenu,DropdownItem} from "reactstrap"
+import {currencies} from "../common/data/crypto"
 
 function HistoryTable() {
     return (
-        <div>
-
-
-            <div className=' mx-auto'>
-                {/* history table  */}
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <Col xl={12} className="mt-4">
+            <Card>
+                <CardHeader className="align-items-center d-flex">
+                    <h4 className="card-title mb-0 flex-grow-1">My Currencies</h4>
+                    <div className="flex-shrink-0">
+                        <button className="btn btn-soft-primary btn-sm">24H</button>
+                    </div>
+                    <div className="flex-shrink-0 ms-2">
+                        <UncontrolledDropdown className="card-header-dropdown" direction='start'>
+                            <DropdownToggle className="btn btn-soft-primary btn-sm" role="button" tag="a">
+                                Get Report<i className="mdi mdi-chevron-down align-middle ms-1"></i>
+                            </DropdownToggle>
+                            <DropdownMenu className="dropdown-menu dropdown-menu-end">
+                                <DropdownItem>Download Report</DropdownItem>
+                                <DropdownItem>Export</DropdownItem>
+                                <DropdownItem>Import</DropdownItem>
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
+                    </div>
+                </CardHeader>
+                <div className="card-body">
+                    <div className="table-responsive table-card">
+                        <table className="table table-hover table-borderless table-centered align-middle table-nowrap mb-0">
+                            <thead className="text-muted bg-light-subtle">
                             <tr>
-                                <th scope="col" className="px-6 py-3">
-                                    Category
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Date
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Description
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Amount
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Name
-                                </th>
+                                <th>Coin Name</th>
+                                <th>Price</th>
+                                <th>24h Change</th>
+                                <th>Total Balance</th>
+                                <th>Total Coin</th>
+                                <th>Actions</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr className="bg-white border-b dark:bg-gray-800  ">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    <div className='flex items-center gap-2'>
-                                        <div className='p-1 bg-green-500 flex justify-center items-center w-8 h-8 rounded-full'>
-                                            <FcBusiness size={30}/>
+                            </thead>
+                            <tbody>
+                            {(currencies || []).map((item, key) => (
+                                <tr key={key}>
+                                    <td>
+                                        <div className="d-flex align-items-center">
+                                            <div className="me-2">
+                                                <img src={item.img} alt="" className="avatar-xxs" />
+                                            </div>
+                                            <div>
+                                                <h6 className="fs-14 mb-0">{item.coinName}</h6>
+                                            </div>
                                         </div>
-                                        <p className='text-white'>Travel</p>
-                                    </div>
-                                </th>
-                                <td className="px-6 py-4">
-                                    09/09/2012
-                                </td>
-                                <td className="px-6 py-4">
-                                    amr iche moto ami onk tk khoroch kore felsi
-                                </td>
-                                <td className="px-6 py-4">
-                                    $2999
-                                </td>
-                                <td className="px-6 py-4 ">
-                                    Sayed
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800  ">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    <div className='flex items-center gap-2'>
-                                        <div className='p-1 bg-green-500 flex justify-center items-center w-8 h-8 rounded-full'>
-                                            <FcLibrary size={30}/>
-                                        </div>
-                                        <p className='text-white'>House Rent</p>
-                                    </div>
-                                </th>
-                                <td className="px-6 py-4">
-                                    09/09/2012
-                                </td>
-                                <td className="px-6 py-4">
-                                    amr iche moto ami onk tk khoroch kore felsi
-                                </td>
-                                <td className="px-6 py-4">
-                                    $2999
-                                </td>
-                                <td className="px-6 py-4 ">
-                                    Sayed
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800  ">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    <div className='flex items-center gap-2'>
-                                        <div className='p-1 bg-purple-500 flex justify-center items-center w-8 h-8 rounded-full'>
-                                            <FaCar size={30}/>
-                                        </div>
-                                        <p className='text-white'>Car Rent</p>
-                                    </div>
-                                </th>
-                                <td className="px-6 py-4">
-                                    09/09/2012
-                                </td>
-                                <td className="px-6 py-4">
-                                    amr iche moto ami onk tk khoroch kore felsi
-                                </td>
-                                <td className="px-6 py-4">
-                                    $2999
-                                </td>
-                                <td className="px-6 py-4 ">
-                                    Sayed
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td>${item.price}</td>
+                                    <td><h6 className={"fs-13 mb-0 text-" + item.iconClass}><i className={"align-middle me-1 " + item.icon}></i>{item.change}</h6></td>
+                                    <td>${item.balance}</td>
+                                    <td>{item.totalCoin}</td>
+                                    <td><a href="/" className="btn btn-sm btn-soft-secondary">Trade</a></td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-
-        </div>
+            </Card>
+        </Col>
     )
 }
 

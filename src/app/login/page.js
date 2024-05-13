@@ -1,16 +1,16 @@
-// import GenaralLayout from "@/components/layout/GenaralLayout"
-import Login from "@/components/Login"
+import SignIn from "@/components/SignIn";
+import GenaralLayout from "@/components/layout/GenaralLayout";
 
 
 function Page() {
     
 
   return (
-    <div>
+    <GenaralLayout>
       <>
-        <Login />
+          <SignIn />
       </>
-    </div>
+    </GenaralLayout>
   )
 }
 

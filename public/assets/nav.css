@@ -1,7 +1,32 @@
 
 
-  
-.container {
+ /*===========================*/
+
+ .main_nav{
+   background-color: lightslategray;
+   box-shadow: darkgray;
+ }
+ .web_nav{
+     width: 90%;
+     height: 80px;
+     margin: auto;
+     background-color: red;
+ }
+
+
+ /*===== Responsive*/
+ @media screen and (min-width: 600px) {
+   .web_main_nav{
+       display: block;
+   }
+ }
+ /*===== Responsive md*/
+ @media screen and (min-width: 800px) {
+
+ }
+
+
+ .container {
     max-width: 1050px;
     width: 100%;
     margin: auto;

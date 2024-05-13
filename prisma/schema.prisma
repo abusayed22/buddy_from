@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum categories {
+  travel
+  houesRent
+  carRent
+  planeRent
+}
+
+enum status {
+  true
+  false
+}
+
+model users {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(100)
+  email    String @unique
+  password String @db.VarChar(20)
+  phone    String @db.VarChar(50)
+  otp      String @db.VarChar(10)
+
+  tourGroup tourGroup[]
+  expenses  expenses[]
+
+  createAt DateTime @default(now()) @db.Timestamp(0)
+  updateAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+}
+
+model tourGroup {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(100)
+  status status
+  admin  String @db.VarChar(100)
+
+  user_id Int
+  users   users @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Restrict)
+
+  allow_Users allow_Users[]
+  expenses    expenses[]
+
+  createAt DateTime @default(now()) @db.Timestamp(0)
+  updateAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+}
+
+model allow_Users {
+  id            Int       @id @default(autoincrement())
+  email         String    @db.VarChar(100)
+
+  tour_group_id Int
+  tourGroup     tourGroup @relation(fields: [tour_group_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  createAt DateTime @default(now()) @db.Timestamp(0)
+  updateAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+}
+
+model expenses {
+  id        Int        @id @default(autoincrement())
+  amount    Decimal
+  category  categories
+  note      String     @db.LongText
+
+  user_id   Int
+  users     users      @relation(fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  tour_id   Int
+  tourGroup tourGroup  @relation(fields: [tour_id], references: [id], onDelete: Cascade, onUpdate: Restrict)
+
+  createAt DateTime @default(now()) @db.Timestamp(0)
+  updateAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+}

@@ -1,96 +1,122 @@
-"use client"
+'use client'
 
-import React, { useEffect, useState } from 'react'
-import '../../../public/assets/nav.css'
-import { usePathname } from 'next/navigation'
 
-function Nav() {
+import React, { useState, useEffect } from "react";
+import { Collapse, Container, NavbarToggler, NavLink } from "reactstrap";
+import Scrollspy from "react-scrollspy";
+import {IoMenu} from "react-icons/io5";
+import {MdCancel} from "react-icons/md";
+import {usePathname} from "next/navigation";
+// import { Link } from "react-router-dom";
+
+// Import Images
+// import logodark from "../../../assets/images/logo-dark.png";
+// import logolight from "../../../assets/images/logo-light.png";
+
+const Nav = () => {
     const path = usePathname()
+    const [isOpenMenu, setisOpenMenu] = useState(false);
+    const [navClass, setnavClass] = useState("");
 
+    const toggle = () => setisOpenMenu(!isOpenMenu);
+
+    useEffect(() => {
+        window.addEventListener("scroll", scrollNavigation, true);
+    });
+
+    const scrollNavigation = () => {
+        var scrollup = document.documentElement.scrollTop;
+        if (scrollup > 50) {
+            setnavClass("is-sticky");
+        } else {
+            setnavClass("");
+        }
+    }
+
+    const [activeLink, setActiveLink] = useState();
+    useEffect(() => {
+        const activation = (event) => {
+            const target = event.target;
+            if (target) {
+                target.classList.add('active');
+                setActiveLink(target);
+                if (activeLink && activeLink !== target) {
+                    activeLink.classList.remove('active');
+                }
+            }
+        };
+        const defaultLink = document.querySelector('.navbar li.a.active');
+        if (defaultLink) {
+            defaultLink?.classList.add("active")
+            setActiveLink(defaultLink)
+        }
+        const links = document.querySelectorAll('.navbar a');
+        links.forEach((link) => {
+            link.addEventListener('click', activation);
+        });
+        return () => {
+            links.forEach((link) => {
+                link.removeEventListener('click', activation);
+            });
+        };
+    }, [activeLink]);
 
     return (
-        <div className='bg-gray-300 shadow shadow-gray-300'>
-            {/* web  */}
-            <nav className="hidden md:block ">
-                <div className="w-[90%] md:h-16 h-28 mx-auto flex items-center justify-between flex-wrap md:flex-nowrap">
-                    {/* <!-- Logo --> */}
-                    <a href='/' className="text-primary md:order-1 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                        </svg>
+        <React.Fragment>
+            <nav className={"navbar navbar-expand-lg navbar-landing fixed bg-secondary" + navClass} id="navbar">
+                <Container>
+                    <a className="navbar-brand" href="/index">
+                        <p className="text-info bx-font-family la-font-awesome-logo-full fw-bold">Buddys_Form</p>
+                        {/*<img src="" className="card-logo card-logo-dark" alt="logo dark" height="17" />*/}
+                        {/*<img src="" className="card-logo card-logo-light" alt="logo light" height="17" />*/}
                     </a>
-                    <div className="text-gray-500 order-3 w-full md:w-auto md:order-2">
-                        <ul className="flex font-semibold justify-between">
 
-                            <li className={`md:px-4 md:py-2"}`}><a className={`${path === '/dashboard' ? "text-blue-700" :"text-indigo-400 "}`} href="/dashboard">Dashboard</a></li>
-                            <li className={`md:px-4 md:py-2"}`}><a className={`${path === '/history' ? "text-blue-700" :"text-indigo-400 "}`} href="/history">History</a></li>
-                            {/* <li className={`md:px-4 md:py-2`}><a className={`${path === '/history' ? "text-blue-700" :"text-indigo-500 "}`} href="/history">History</a></li> */}
-                            {/* <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/history">History</a></li> */}
-                        </ul>
-                    </div>
-                    <div className="order-2 md:order-3">
-                        <a href='/login-register' className="px-4 py-2 bg-primary hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2">
-                            {/* <!-- Heroicons - Login Solid --> */}
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Login</span>
-                        </a>
-                    </div>
-                </div>
-            </nav>
+                    <NavbarToggler className="navbar-toggler py-0 fs-20 text-body" onClick={toggle} type="button" data-bs-toggle="collapse"
+                                   data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                   aria-expanded="false" aria-label="Toggle navigation">
+                        {isOpenMenu? (<MdCancel />): (<IoMenu />)}
+                    </NavbarToggler>
 
+                    <Collapse
+                        isOpen={isOpenMenu}
+                        className="navbar-collapse "
+                        id="navbarSupportedContent"
+                    >
+                        <Scrollspy
+                            offset={18}
+                            items={[
+                                "Home",
+                                "Dashboard",
+                                "History",
+                                "login",
+                                "register",
+                            ]}
+                            currentClassName="active"
+                            className="navbar-nav mx-auto mt-2 mt-lg-0"
+                            id="navbar-example"
+                        >
+                            <li className={`nav-item text-light ${path=== '/' && "fw-bold"} `}>
+                                <NavLink className="text-light" href="/">Home</NavLink>
+                            </li>
+                            <li className={`nav-item text-light ${path=== '/dashboard' && "fw-bold"} text-light`}>
+                                <NavLink className="text-light" href="/dashboard">Dashboard</NavLink>
+                            </li>
+                            <li className={`nav-item text-light ${path=== '/history' && "fw-bold"} .text-light`}>
+                                <NavLink className="text-light" href="/history">Expense-History</NavLink>
+                            </li>
 
+                        </Scrollspy>
 
-            {/* mobile  */}
-            <div className='block md:hidden relative w-[90%] mx-auto '>
-
-                <nav>
-                    <div className="navbar z-20 w-full ">
-                        <div className="container nav-container z-20">
-                            <input className="checkbox" type="checkbox" name="" id="" />
-                            <div className="hamburger-lines">
-                                <span className="line line1"></span>
-                                <span className="line line2"></span>
-                                <span className="line line3"></span>
-                            </div>
-                            {/* <div className="logo flex items-center">
-                                <a href='/' className="text-indigo-800 md:order-1 cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                                    </svg>
-                                </a>
-                            </div> */}
-                            <div className="menu-items">
-                                <li className={`md:px-4 md:py-2 ${path === '/' ? "text-white" :"text-indigo-500"}`}><a href="/">Home</a></li>
-                                <li className={`md:px-4 md:py-2 ${path === '/dashboard' ? "text-white" :"text-indigo-500"}`}><a href="/dashboard">Dashboard</a></li>
-                                <li className={`md:px-4 md:py-2 ${path === '/history' ? "text-white" :"text-indigo-500"}`}><a href="/history">History</a></li>
-                                {/* <li><a href="#">portfolio</a></li> */}
-                                {/* <li><a href="#">contact</a></li> */}
-
-                                <br />
-                                <br />
-                                <li className='w-full flex justify-center'><a href='/login-register' className="px-3 py-2 bg-primary hover:bg-indigo-600 text-sm text-gray-50 rounded-xl flex items-center gap-2">
-                                    {/* <!-- Heroicons - Login Solid --> */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                    </svg>
-                                    <span>Login</span>
-                                </a></li>
-                            </div>
+                        <div className="md:border p-2 rounded-3 ">
+                            <a href="/login" className="text-light btn btn-link fw-medium text-decoration-none">Sign
+                                in</a>
+                            <a href="/register" className="btn btn-primary text-light">Sign Up</a>
                         </div>
-                    </div>
-                </nav>
+                    </Collapse>
+                </Container>
+            </nav>
+        </React.Fragment>
+    );
+};
 
-
-            </div>
-        </div>
-
-    )
-}
-
-export default Nav
+export default Nav;
